@@ -1,0 +1,19 @@
+---
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - test
+  - deploy
+
+shellcheck:
+  stage: test
+  image: peterdavehello/shellcheck:0.7.1
+  only:
+    changes:
+      - "**/*.bash"
+      - "**/*.sh"
+  before_script:
+    - shellcheck --version
+  script:
+    - find . -name "*.sh" | xargs -n 1 shellcheck --color=always
+  tags:
+    - docker
