@@ -412,4 +412,5 @@ for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
 done
 
 echo "Completed"
+# shellcheck disable=SC2016
 echo 'Its a good idea to run pacman -R $(pacman -Qtdq) or yay -R $(yay -Qtdq)'
