@@ -2,8 +2,8 @@
 set -e
 
 pack_extars+=(
-    'gsfonts' 'apparmor' 'xsane' 'imagescan'
-    'python-pysmbc'
+	'gsfonts' 'apparmor' 'xsane' 'imagescan'
+	'python-pysmbc'
 )
 pack_extars+=('libotr')
 pack_extars+=('xclip' 'xsel' 'wl-clipboard')
