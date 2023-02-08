@@ -192,7 +192,9 @@ ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau'
 
 # apparmor dbus-broker libvirtd
 MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd'
-  'systemd-resolved' 'iptables' 'ufw' 'docker' 'cups' 'bluetooth'
+  'systemd-resolved' 'iptables' 'ufw' 'docker'
+  # 'cups'
+  # 'bluetooth'
   'pcscd')
 
 if [[ $kde_yes_no == "Y" || $kde_yes_no == "y" ]]; then
