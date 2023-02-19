@@ -323,7 +323,7 @@ if [[ $pipewire_yes_no == "Y" || $pipewire_yes_no == "y" ]]; then
     'pipewire-jack' 'lib32-pipewire' 'lib32-pipewire-jack'
     'gst-plugin-pipewire' 'pipewire-v4l2' 'pipewire-zeroconf' 'lib32-pipewire-v4l2')
 
-  ALL_PAKGS+=('libpipewire02') # WebRTC desktop sharing under Wayland
+  # ALL_PAKGS+=('libpipewire02') # WebRTC desktop sharing under Wayland
 
 else
   ALL_PAKGS+=('pulseaudio' 'pulseaudio-alsa' 'pulseaudio-bluetooth'
