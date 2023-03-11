@@ -76,4 +76,4 @@ done
 sudo systemctl restart ssh
 
 sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'bash <(curl https://raw.githubusercontent.com/arpanrec/ansible_plays/main/webrun.sh) --tags all'
-sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'source ~/.bashrc && config reset --hard HEAD'
+sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'git --git-dir="$HOME/.dotfiles" --work-tree=$HOME reset --hard HEAD'
