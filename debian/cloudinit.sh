@@ -9,8 +9,21 @@ export CLOUD_INIT_GROUPNAME=${CLOUD_INIT_GROUPNAME:-cloudinit}
 export CLOUD_INIT_USERNAME=${CLOUD_INIT_USERNAME:-clouduser}
 export CLOUD_INIT_USE_SSHPUBKEY=${CLOUD_INIT_USE_SSHPUBKEY:-'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJXzoi1QAbLmxnyudx+7Dm+FGTYU+TP02MTtxqq9w82Rm2kIDtGf4xVGxaidYEP/WcgpOHacjKDa7p2skBYljmk= arpan.rec@gmail.com'}
 export CLOUD_INIT_SSHPORT=${CLOUD_INIT_SSHPORT:-22}
-export CLOUD_INIT_HOSTNAME=${CLOUD_INIT_HOSTNAME:-cloudvm}
-export CLOUD_INIT_DOMAINNAME=${CLOUD_INIT_DOMAINNAME:-clouddomain}
+
+if [ "$(hostname)" = 'localhost' ]; then
+  CLOUD_INIT_HOSTNAME=${CLOUD_INIT_HOSTNAME:-cloudvm}
+else
+  CLOUD_INIT_HOSTNAME=$(hostname)
+fi
+
+if [ "$(domainname)" = '(none)' ]; then
+  CLOUD_INIT_DOMAINNAME=${CLOUD_INIT_DOMAINNAME:-clouddomain}
+else
+  CLOUD_INIT_DOMAINNAME=$(domainname)
+fi
+
+export CLOUD_INIT_HOSTNAME
+export CLOUD_INIT_DOMAINNAME
 
 sudo apt update
 sudo apt upgrade -y
