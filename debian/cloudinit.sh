@@ -70,7 +70,7 @@ sudo ufw allow "${CLOUD_INIT_SSHPORT}"
 MAN_SERVICES=('NetworkManager' 'systemd-timesyncd' 'systemd-resolved' 'ufw' 'cron' 'ssh')
 for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
   echo "Enable Service: ${MAN_SERVICE}"
-  systemctl enable --now "${MAN_SERVICE}"
+  sudo systemctl enable --now "${MAN_SERVICE}"
 done
 
 sudo systemctl restart ssh
