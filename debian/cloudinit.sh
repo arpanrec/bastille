@@ -58,7 +58,8 @@ ChallengeResponseAuthentication no
 """ | sudo tee /etc/ssh/sshd_config.d/0001-cloudinit.conf
 
 sed -i '/^127.0.1.1/d' /etc/hosts
-echo "127.0.1.1 ${CLOUD_INIT_HOSTNAME} ${CLOUD_INIT_HOSTNAME}.${CLOUD_INIT_DOMAINNAME}"
+echo "127.0.1.1 ${CLOUD_INIT_HOSTNAME} ${CLOUD_INIT_HOSTNAME}.${CLOUD_INIT_DOMAINNAME}" | sudo tee -a /etc/hosts
+sudo hostnamectl set-hostname "${CLOUD_INIT_HOSTNAME}"
 
 sudo wget https://download.docker.com/linux/debian/gpg -O /etc/apt/trusted.gpg.d/docker.asc
 sudo chmod 644 /etc/apt/trusted.gpg.d/docker.asc
