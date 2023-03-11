@@ -9,6 +9,8 @@ export CLOUD_INIT_GROUPNAME=${CLOUD_INIT_GROUPNAME:-cloudinit}
 export CLOUD_INIT_USERNAME=${CLOUD_INIT_USERNAME:-clouduser}
 export CLOUD_INIT_USE_SSHPUBKEY=${CLOUD_INIT_USE_SSHPUBKEY:-'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJXzoi1QAbLmxnyudx+7Dm+FGTYU+TP02MTtxqq9w82Rm2kIDtGf4xVGxaidYEP/WcgpOHacjKDa7p2skBYljmk= arpan.rec@gmail.com'}
 export CLOUD_INIT_SSHPORT=${CLOUD_INIT_SSHPORT:-22}
+export CLOUD_INIT_HOSTNAME=${CLOUD_INIT_HOSTNAME:-cloudvm}
+export CLOUD_INIT_DOMAINNAME=${CLOUD_INIT_DOMAINNAME:-clouddomain}
 
 sudo apt update
 sudo apt upgrade -y
@@ -54,6 +56,9 @@ ClientAliveInterval 60
 ClientAliveCountMax 3
 ChallengeResponseAuthentication no
 """ | sudo tee /etc/ssh/sshd_config.d/0001-cloudinit.conf
+
+sed -i '/^127.0.1.1/d' /etc/hosts
+echo "127.0.1.1 ${CLOUD_INIT_HOSTNAME} ${CLOUD_INIT_HOSTNAME}.${CLOUD_INIT_DOMAINNAME}"
 
 sudo wget https://download.docker.com/linux/debian/gpg -O /etc/apt/trusted.gpg.d/docker.asc
 sudo chmod 644 /etc/apt/trusted.gpg.d/docker.asc
