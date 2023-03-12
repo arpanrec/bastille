@@ -79,7 +79,7 @@ ClientAliveCountMax 3
 ChallengeResponseAuthentication no
 """ | sudo tee /etc/ssh/sshd_config.d/0001-cloudinit.conf
 
-sed -i '/^127.0.1.1/d' /etc/hosts
+sudo sed -i '/^127.0.1.1/d' /etc/hosts
 echo "127.0.1.1 ${CLOUD_INIT_HOSTNAME} ${CLOUD_INIT_HOSTNAME}.${CLOUD_INIT_DOMAINNAME}" | sudo tee -a /etc/hosts
 sudo hostnamectl set-hostname "${CLOUD_INIT_HOSTNAME}"
 
