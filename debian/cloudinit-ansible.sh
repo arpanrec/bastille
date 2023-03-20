@@ -49,14 +49,7 @@ else
   sudo apt-get install -y "linux-headers"
 fi
 
-sudo mkdir -p /etc/sudoers.d/
-sudo su -c 'echo "root ALL=(ALL:ALL) ALL" > /etc/sudoers.d/1000-root'
-sudo su -c 'echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/1200-wheel'
-sudo su -c 'echo "%sudo ALL=(ALL:ALL) ALL" > /etc/sudoers.d/1100-sudo'
-
 getent group "${CLOUD_INIT_GROUPNAME}" || sudo groupadd "${CLOUD_INIT_GROUPNAME}"
-getent group wheel || sudo groupadd wheel
-getent group sudo || sudo groupadd sudo
 
 id -u "${CLOUD_INIT_USERNAME}" &>/dev/null ||
   sudo /sbin/useradd -m -d /home/"${CLOUD_INIT_USERNAME}" -g "${CLOUD_INIT_GROUPNAME}" -G wheel -s /bin/zsh "${CLOUD_INIT_USERNAME}"
@@ -69,46 +62,17 @@ sudo chown "${CLOUD_INIT_USERNAME}":"${CLOUD_INIT_GROUPNAME}" -R /home/"${CLOUD_
 sudo chmod 700 /home/"${CLOUD_INIT_USERNAME}"/.ssh
 sudo chmod 600 /home/"${CLOUD_INIT_USERNAME}"/.ssh/authorized_keys
 
+sudo mkdir -p /etc/sudoers.d/
 sudo su -c 'echo "%'"${CLOUD_INIT_GROUPNAME}"' ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/010-cloudinit'
-sudo su -c 'echo "'"${CLOUD_INIT_USERNAME}"' ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/010-cloudinit'
 
-sudo mkdir -p /etc/ssh/sshd_config.d
-
-echo """
-Port ${CLOUD_INIT_SSHPORT}
-PasswordAuthentication no
-PermitRootLogin no
-PermitEmptyPasswords no
-MaxAuthTries 3
-X11Forwarding no
-ClientAliveInterval 60
-ClientAliveCountMax 3
-ChallengeResponseAuthentication no
-""" | sudo tee /etc/ssh/sshd_config.d/0001-cloudinit.conf
-
-sudo sed -i '/^127.0.1.1/d' /etc/hosts
-echo "127.0.1.1 ${CLOUD_INIT_HOSTNAME} ${CLOUD_INIT_HOSTNAME}.${CLOUD_INIT_DOMAINNAME}" | sudo tee -a /etc/hosts
-sudo hostnamectl set-hostname "${CLOUD_INIT_HOSTNAME}"
-
-sudo wget https://download.docker.com/linux/debian/gpg -O /etc/apt/trusted.gpg.d/docker.asc
-sudo chmod 644 /etc/apt/trusted.gpg.d/docker.asc
-echo \
-  "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/debian \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/download_docker_com_linux_debian.list >/dev/null
-sudo apt-get update
-sudo sudo apt-get remove docker docker-engine docker.io containerd runc
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-sudo usermod -aG docker "${CLOUD_INIT_USERNAME}"
-
-sudo ufw allow "${CLOUD_INIT_SSHPORT}"
-
-MAN_SERVICES=('NetworkManager' 'systemd-timesyncd' 'systemd-resolved' 'ufw' 'cron' 'ssh')
-for MAN_SERVICE in "${MAN_SERVICES[@]}"; do
-  echo "Enable Service: ${MAN_SERVICE}"
-  sudo systemctl enable --now "${MAN_SERVICE}"
-done
-
-sudo systemctl restart ssh
-
-sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'bash <(curl https://raw.githubusercontent.com/arpanrec/ansible_plays/main/webrun.sh) --tags all'
-sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'git --git-dir="$HOME/.dotfiles" --work-tree=$HOME reset --hard HEAD'
+sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'set -ex && \
+  export PATH="${HOME}/.local/bin:${PATH}" && \
+  pip install ansible --user --upgrade && \
+  ansible-galaxy collection install git+https://github.com/arpanrec/ansible_collection_utilities.git -f && \
+  ansible-galaxy role install geerlingguy.docker -f && \
+  mkdir "${HOME}/.tmp/cloudinit" -p && \
+  echo "[local]" > "${HOME}/.tmp/cloudinit/inv" && \
+  echo "localhost ansible_connection=local" >> "${HOME}/.tmp/cloudinit/inv" && \
+  ansible-playbook -i "${HOME}/.tmp/cloudinit/inv" --extra-vars "pv_cloud_username=$(whoami)" arpanrec.utilities.cloudinit && \
+  ansible-playbook -i "${HOME}/.tmp/cloudinit/inv" arpanrec.utilities.server_workspace --tags all
+  '
