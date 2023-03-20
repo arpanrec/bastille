@@ -34,7 +34,7 @@ fi
 getent group "${CLOUD_INIT_GROUPNAME}" || sudo groupadd "${CLOUD_INIT_GROUPNAME}"
 
 id -u "${CLOUD_INIT_USERNAME}" &>/dev/null ||
-  sudo /sbin/useradd -m -d /home/"${CLOUD_INIT_USERNAME}" -g "${CLOUD_INIT_GROUPNAME}" -G wheel -s /bin/zsh "${CLOUD_INIT_USERNAME}"
+  sudo /sbin/useradd -m -d /home/"${CLOUD_INIT_USERNAME}" -g "${CLOUD_INIT_GROUPNAME}" -s /bin/zsh "${CLOUD_INIT_USERNAME}"
 
 sudo mkdir -p /home/"${CLOUD_INIT_USERNAME}"/.ssh
 
