@@ -233,7 +233,7 @@ if lspci | grep -E "NVIDIA|GeForce"; then
   echo "  Setting Nvidia Drivers setup pacman hook and udev rules  "
   echo "-----------------------------------------------------------"
 
-  ALL_PAKGS+=('nvidia' 'nvidia-utils' 'nvidia-settings' 'nvidia-prime' 'lib32-nvidia-utils' 'nvtop')
+  ALL_PAKGS+=('nvidia' 'nvidia-utils' 'nvidia-settings' 'nvidia-prime' 'lib32-nvidia-utils' 'nvtop' 'libvdpau-va-gl')
 
   echo ""
   echo "Packages to be installed: 'nvidia' 'nvidia-utils' 'nvidia-settings' 'nvidia-prime' 'lib32-nvidia-utils' 'nvtop'"
