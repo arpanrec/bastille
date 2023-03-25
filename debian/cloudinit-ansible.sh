@@ -11,11 +11,21 @@ export CLOUD_INIT_GROUPNAME=${CLOUD_INIT_GROUPNAME:-cloudinit}
 export CLOUD_INIT_USERNAME=${CLOUD_INIT_USERNAME:-clouduser}
 export CLOUD_INIT_USE_SSHPUBKEY=${CLOUD_INIT_USE_SSHPUBKEY:-'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJXzoi1QAbLmxnyudx+7Dm+FGTYU+TP02MTtxqq9w82Rm2kIDtGf4xVGxaidYEP/WcgpOHacjKDa7p2skBYljmk= arpan.rec@gmail.com'}
 
-echo """
-CLOUD_INIT_GROUPNAME = ${CLOUD_INIT_GROUPNAME}
-CLOUD_INIT_USERNAME = ${CLOUD_INIT_USERNAME}
-CLOUD_INIT_USE_SSHPUBKEY = ${CLOUD_INIT_USE_SSHPUBKEY}
-"""
+if [ "$(hostname)" = 'localhost' ]; then
+  CLOUD_INIT_HOSTNAME=${CLOUD_INIT_HOSTNAME:-cloudvm}
+else
+  CLOUD_INIT_HOSTNAME=$(hostname)
+fi
+
+if [ "$(domainname)" = '(none)' ]; then
+  CLOUD_INIT_DOMAINNAME=${CLOUD_INIT_DOMAINNAME:-clouddomain}
+else
+  CLOUD_INIT_DOMAINNAME=$(domainname)
+fi
+
+sudo sed -i '/^127.0.1.1/d' /etc/hosts
+echo "127.0.1.1 ${CLOUD_INIT_HOSTNAME} ${CLOUD_INIT_HOSTNAME}.${CLOUD_INIT_DOMAINNAME}" | sudo tee -a /etc/hosts
+sudo hostnamectl set-hostname "${CLOUD_INIT_HOSTNAME}"
 
 sudo apt upgrade -y
 
