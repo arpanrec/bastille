@@ -1,0 +1,10 @@
+---
+- name: Create a admin user
+  ansible.builtin.set_fact:
+    pv_sinit_admin_username: vmuser
+  when: pv_sinit_admin_username is undefined or pv_sinit_admin_username | length < 1
+
+- name: SSH Public Key Content for Admin User, default
+  ansible.builtin.set_fact:
+    pv_sinit_ssh_public_key_content_for_admin_suer: "{{ lookup('url', 'https://gitlab.com/arpanrecme/dotfiles/-/raw/main/.ssh/id_rsa.pub') }}"
+  when: pv_sinit_ssh_public_key_content_for_admin_suer is undefined or pv_sinit_ssh_public_key_content_for_admin_suer | length < 1

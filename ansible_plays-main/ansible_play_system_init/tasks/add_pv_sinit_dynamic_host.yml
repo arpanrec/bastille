@@ -1,0 +1,12 @@
+---
+- name: Adding dynamic host
+  ansible.builtin.add_host:
+    hostname: pv_sinit_dynamic_host
+    ansible_host: "{{ pv_sinit_ansible_host | default(omit, true) }}"
+    ansible_connection: "{{ pv_sinit_ansible_connection | default(omit, true) }}"
+    ansible_port: "{{ pv_sinit_ansible_port | default(omit, true) }}"
+    ansible_user: "{{ pv_sinit_ansible_user | default(omit, true) }}"
+    ansible_password: "{{ pv_sinit_ansible_password | default(omit, true) }}"
+    ansible_ssh_private_key_file: "{{ pv_sinit_ansible_ssh_private_key_file | default(omit, true) }}"
+    ansible_become_method: "{{ pv_sinit_ansible_become_method | default(omit, true) }}"
+    ansible_become_password: "{{ pv_sinit_ansible_become_password | default(omit, true) }}"

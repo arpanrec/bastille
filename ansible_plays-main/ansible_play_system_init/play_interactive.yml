@@ -1,0 +1,58 @@
+---
+- name: Add dynamic host
+  hosts: localhost
+  become: false
+  gather_facts: false
+  vars_prompt:
+    - name: pv_sinit_ansible_host
+      prompt: Hostname or IP address
+      private: false
+
+    - name: pv_sinit_ansible_connection
+      prompt: Ansible Connection
+      private: false
+
+    - name: pv_sinit_ansible_port
+      prompt: Ansible Post
+      private: false
+
+    - name: pv_sinit_ansible_user
+      prompt: Ansible User
+      private: false
+
+    - name: pv_sinit_ansible_password
+      prompt: Ansible Password
+      private: true
+
+    - name: pv_sinit_ansible_ssh_private_key_file
+      prompt: Private Key File
+      private: false
+
+    - name: pv_sinit_ansible_become_method
+      prompt: Ansible Become Method
+      private: false
+
+    - name: pv_sinit_ansible_become_password
+      prompt: Ansible become Password
+      private: true
+
+    - name: pv_sinit_expected_hostname
+      prompt: Expected Hostname for the system
+      private: false
+
+    - name: pv_sinit_admin_username
+      prompt: Create a admin user
+      private: false
+      default: vmuser
+
+    - name: pv_sinit_ssh_public_key_content_for_admin_suer
+      prompt: SSH Public Key Content for Admin User
+      private: false
+      default: "{{ lookup('url', 'https://gitlab.com/arpanrecme/dotfiles/-/raw/main/.ssh/id_rsa.pub') }}"
+
+    - name: pv_sinit_is_install_docker
+      prompt: Want to install Docker-CE?
+      private: false
+  tasks:
+    - name: Include Tasks
+      ansible.builtin.import_tasks: tasks/main.yml
