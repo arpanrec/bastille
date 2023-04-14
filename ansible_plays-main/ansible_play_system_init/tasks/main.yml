@@ -1,0 +1,10 @@
+---
+- name: Include vars
+  ansible.builtin.import_tasks: tasks/vars.yml
+
+- name: Add host 'pv_sinit_dynamic_host'
+  ansible.builtin.import_tasks: tasks/add_pv_sinit_dynamic_host.yml
+
+- name: Setup system
+  ansible.builtin.import_tasks: tasks/setup.yml
+  delegate_to: pv_sinit_dynamic_host

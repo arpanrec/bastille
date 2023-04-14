@@ -1,0 +1,6 @@
+---
+collections:
+  - source: https://github.com/arpanrec/ansible_collection_utilities.git
+    type: git
+    name: arpanrec.utilities
+    version: main

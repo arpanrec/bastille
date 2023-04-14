@@ -1,0 +1,8 @@
+---
+- name: Add dynamic host
+  hosts: localhost
+  become: false
+  gather_facts: false
+  tasks:
+    - name: Include Tasks
+      ansible.builtin.import_tasks: tasks/main.yml

@@ -1,0 +1,7 @@
+ansible
+jmespath
+lxml
+pip
+yamllint
+ansible-lint #==6.2.0
+flake8

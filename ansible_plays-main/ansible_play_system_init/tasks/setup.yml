@@ -1,0 +1,69 @@
+---
+- name: Patch linux system
+  become: true
+  ansible.builtin.import_role:
+    name: arpanrec.linux_patching
+  vars:
+    rv_linux_patching_hostname: "{{ pv_sinit_expected_hostname | default(omit, true) }}"
+
+- name: Add user
+  become: true
+  ansible.builtin.import_role:
+    name: arpanrec.user_add
+  vars:
+    rv_user_add_username: "{{ pv_sinit_admin_username }}"
+    rv_user_add_ssh_access_public_key: "{{ pv_sinit_ssh_public_key_content_for_admin_suer }}"
+    rv_user_add_user_extra_groups: ["wheel"]
+    rv_user_add_user_default_shell: /bin/zsh
+
+- name: Setup server workspace
+  ansible.builtin.include_role:
+    name: "arpanrec.server_workspace"
+    tasks_from: "{{ pv_sinit_server_workspace_tasksfrom }}"
+  loop:
+    - dotfiles
+    - util_scripts
+    - terminal_themes
+    - fonts
+    - bw
+    - nodejs
+    - nvim
+    - go
+    - java
+    - mvn
+    - gradle
+    - themes
+    - icons
+  loop_control:
+    loop_var: pv_sinit_server_workspace_tasksfrom
+  args:
+    apply:
+      become: true
+      become_user: "{{ pv_sinit_admin_username }}"
+
+- name: Resest git config for dotfiles
+  become: true
+  become_user: "{{ pv_sinit_admin_username }}"
+  ansible.builtin.shell: |
+    source ~/.bashrc && \
+    git --git-dir="$HOME/.dotfiles" --work-tree=$HOME reset --hard HEAD
+  changed_when: true
+  args:
+    executable: /bin/bash
+
+- name: SSH Harding
+  become: true
+  ansible.builtin.import_role:
+    name: arpanrec.ssh_hardening
+  vars:
+    rv_sshd_hardening_ssh_security_password_authentication: false
+    rv_sshd_hardening_ssh_security_permit_root_login: false
+
+- name: Install Docker
+  become: true
+  ansible.builtin.import_role:
+    name: geerlingguy.docker
+  vars:
+    docker_users:
+      - "{{ pv_sinit_admin_username }}"
+  when: pv_sinit_is_install_docker | default(false, true) | bool
