@@ -17,10 +17,10 @@ if [[ -d "/sys/firmware/efi" ]]; then
   read -r -n1 -p 'Enter "Y" to install UEFI Grub in mounted Fat32 drive, (Press any other key to Skip*) : ' install_grub_uefi
   echo ""
   if [[ $install_grub_uefi == "Y" || $install_grub_uefi == "y" ]]; then
-    read -r -p "Enter EFI directory location, (Default /boot/efi*, press n to skip grub install) : " install_grub_efi_dir
+    read -r -p "Enter EFI directory location, (Default /efi*, press n to skip grub install) : " install_grub_efi_dir
     echo ""
     if [ -z "$install_grub_efi_dir" ]; then
-      install_grub_efi_dir="/boot/efi"
+      install_grub_efi_dir="/efi"
     elif [[ $install_grub_efi_dir == "n" || $install_grub_efi_dir == "N" ]]; then
       unset install_grub_efi_dir
     fi
@@ -114,6 +114,10 @@ ALL_PAKGS+=('docker' 'criu' 'docker-scan' 'docker-buildx')
 
 ALL_PAKGS+=('ccid' 'opensc')
 
+ALL_PAKGS+=('firefox' 'vivaldi' 'vivaldi-ffmpeg-codecs')
+
+ALL_PAKGS+=('veracrypt')
+
 if [[ $kde_yes_no == "Y" || $kde_yes_no == "y" ]]; then
 
   ALL_PAKGS+=('xorg' 'xorg-xinit' 'phonon-qt5-gstreamer' 'plasma'
@@ -183,7 +187,7 @@ ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'system-config-printer' 'cups-p
 ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad'
   'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec'
   'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'ffmpeg' 'ffmpeg2theora'
-  'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'kcodecs')
+  'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'celluloid' 'kcodecs')
 
 # Not Sure if this is needed
 ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau'
@@ -345,6 +349,10 @@ if [[ $install_grub_uefi == "Y" || $install_grub_uefi == "y" ]] && [ -n "$instal
   echo "       Install Grub Boot-loader with UEFI in directory $install_grub_efi_dir       "
   echo "-----------------------------------------------------------------------------------"
   mkinitcpio -P
+  chmod 600 /boot/initramfs-linux*
+  if [[ -f "/root/cryptlvm.keyfile" ]]; then
+    chmod 000 /root/cryptlvm.keyfile
+  fi
   grub-install --target=x86_64-efi --bootloader-id=Archlinux \
     --efi-directory="${install_grub_efi_dir}" --root-directory=/ --recheck
   grub-mkconfig -o /boot/grub/grub.cfg
