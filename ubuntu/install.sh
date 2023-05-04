@@ -37,10 +37,6 @@ sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://b
 echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | \
   sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
-sudo curl -fsSLo /usr/share/keyrings/linux_signing_key_vivaldi.pub https://repo.vivaldi.com/archive/linux_signing_key.pub
-echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/linux_signing_key_vivaldi.pub] https://repo.vivaldi.com/archive/deb/ stable main" | \
-  sudo tee /etc/apt/sources.list.d/vivaldi-stable.list
-
 sudo apt update
 
 # Install
@@ -79,7 +75,7 @@ sudo apt install -y gnome-shell-extensions gnome-shell-extension-prefs
 # Fuse is needed for AppImage
 # sudo apt install -y fuse3/fuse
 
-sudo apt install vivaldi-statble brave-browser -y
+sudo apt install brave-browser -y
 
 # Service
 sudo systemctl enable NetworkManager
