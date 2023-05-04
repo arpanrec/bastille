@@ -5,7 +5,7 @@ sudo timedatectl set-ntp true
 sudo timedatectl set-timezone Asia/Kolkata
 
 sudo apt-get install -y linux-firmware linux-headers-"$(uname -r)" linux-modules-extra-"$(uname -r)" \
-  dkms network-manager net-tools build-essential openssh-server dhcpcd5 libgtkmm-3.0-dev ethtool
+  dkms network-manager net-tools build-essential openssh-server dhcpcd5 libgtkmm-3.0-dev ethtool vim neovim
 
 # Add VS Code Repo
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
@@ -32,13 +32,14 @@ else
   rm -rf google-chrome-stable_current_amd64.deb
 fi
 
-wget https://repo.vivaldi.com/archive/linux_signing_key.pub
-sudo apt-key add ./linux_signing_key.pub
-rm -rf ./linux_signing_key.pub
-sudo add-apt-repository 'deb https://repo.vivaldi.com/archive/deb/ stable main' -y
 
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | \
+  sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
+sudo curl -fsSLo /usr/share/keyrings/linux_signing_key_vivaldi.pub https://repo.vivaldi.com/archive/linux_signing_key.pub
+echo "deb [signed-by=/usr/share/keyrings/linux_signing_key_vivaldi.pub] https://repo.vivaldi.com/archive/deb/ stable main" | \
+  sudo tee /etc/apt/sources.list.d/vivaldi-stable.list
 
 sudo apt update
 
@@ -77,7 +78,6 @@ sudo apt install -y gnome-shell-extensions gnome-shell-extension-prefs
 
 # Fuse is needed for AppImage
 # sudo apt install -y fuse3/fuse
-
 
 sudo apt install vivaldi-statble brave-browser -y
 
