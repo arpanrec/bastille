@@ -33,7 +33,7 @@ else
 fi
 
 wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub
-sudo apt-key ./add linux_signing_key.pub
+sudo apt-key add ./linux_signing_key.pub
 rm -rf ./linux_signing_key.pub
 sudo add-apt-repository 'deb https://repo.vivaldi.com/archive/deb/ stable main'
 
