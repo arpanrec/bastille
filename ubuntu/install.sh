@@ -35,7 +35,7 @@ fi
 wget https://repo.vivaldi.com/archive/linux_signing_key.pub
 sudo apt-key add ./linux_signing_key.pub
 rm -rf ./linux_signing_key.pub
-sudo add-apt-repository 'deb https://repo.vivaldi.com/archive/deb/ stable main'
+sudo add-apt-repository 'deb https://repo.vivaldi.com/archive/deb/ stable main' -y
 
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
