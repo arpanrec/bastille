@@ -352,9 +352,6 @@ if [[ $install_grub_uefi == "Y" || $install_grub_uefi == "y" ]] && [ -n "$instal
   echo "-----------------------------------------------------------------------------------"
   mkinitcpio -P
   chmod 600 /boot/initramfs-linux*
-  if [[ -f "/root/cryptlvm.keyfile" ]]; then
-    chmod 000 /root/cryptlvm.keyfile
-  fi
   grub-install --target=x86_64-efi --bootloader-id=Archlinux \
     --efi-directory="${install_grub_efi_dir}" --root-directory=/ --recheck
   grub-mkconfig -o /boot/grub/grub.cfg
