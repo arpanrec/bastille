@@ -103,12 +103,12 @@ grep "keyserver hkp://keyserver.ubuntu.com" \
 pacman -Syu --noconfirm
 
 ALL_PAKGS=('mkinitcpio' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager'
-  'openssh' 'git' 'vim' 'base' 'base-devel' 'linux' 'linux-firmware' 'python-pip' 'lvm2' 'exfatprogs')
+  'openssh' 'git' 'vim' 'base' 'base-devel' 'linux' 'linux-firmware' 'lvm2' 'exfatprogs')
 
 ALL_PAKGS+=('base' 'base-devel' 'linux' 'linux-firmware' 'linux-headers' 'zip' 'unzip' 'pigz' 'wget' 'ntfs-3g' 'curlftpfs'
   'dhcpcd' 'networkmanager' 'dhclient' 'ufw' 'p7zip' 'unrar' 'jq' 'unarchiver' 'lzop' 'lrzip' 'curl' 'libxcrypt-compat')
 
-ALL_PAKGS+=('bash-completion' 'python-pip' 'rclone' 'rsync' 'git')
+ALL_PAKGS+=('bash-completion' 'python-pip' 'python-virtualenv' 'rclone' 'rsync' 'git')
 
 ALL_PAKGS+=('docker' 'criu' 'docker-scan' 'docker-buildx')
 
