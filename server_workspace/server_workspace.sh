@@ -112,7 +112,7 @@ fi
 if [[ -z ${VIRTUAL_ENV} ]]; then
 	export PATH="${HOME}/.local/bin:${PATH}"
 	echo "Updating Python packages"
-	"$(readlink -f "$(which python3)")" -m pip install testresources wheel setuptools pip virtualenv --user --upgrade
+	# "$(readlink -f "$(which python3)")" -m pip install testresources wheel setuptools pip virtualenv --user --upgrade
 	echo "Pip Packages installed"
 	if [[ ! -d "${PWD}/venv" ]]; then
 		virtualenv venv

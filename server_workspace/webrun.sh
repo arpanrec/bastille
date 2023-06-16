@@ -10,8 +10,8 @@ if ! hash git &>/dev/null; then
 	exit 1
 fi
 
-if ! hash pip3 &>/dev/null; then
-	echo "python-pip/python3-pip not Installed"
+if ! hash virtualenv &>/dev/null; then
+	echo "python-virtualenv/python3-virtualenv not Installed"
 	exit 1
 fi
 
