@@ -59,10 +59,11 @@ sudo su -c 'echo "%'"${CLOUD_INIT_GROUPNAME}"' ALL=(ALL) NOPASSWD: ALL" > /etc/s
 
 sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'set -ex && \
   export PATH="${HOME}/.local/bin:${PATH}" && \
-  mkdir -p "${HOME}/.tmp"
-  rm -rf "${HOME}/.tmp/venv"
-  python3 -m venv "${HOME}/.tmp/venv"
-  source "${HOME}/.tmp/venv/bin/activate"
+  deactivate || true && \
+  mkdir -p "${HOME}/.tmp" && \
+  rm -rf "${HOME}/.tmp/venv" && \
+  python3 -m venv "${HOME}/.tmp/venv" && \
+  source "${HOME}/.tmp/venv/bin/activate" && \
   pip install ansible --upgrade && \
   ansible-galaxy collection install git+https://github.com/arpanrec/ansible_collection_utilities.git -f && \
   ansible-galaxy role install geerlingguy.docker -f && \
