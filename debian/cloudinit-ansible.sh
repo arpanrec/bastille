@@ -59,7 +59,7 @@ sudo su -c 'echo "%'"${CLOUD_INIT_GROUPNAME}"' ALL=(ALL) NOPASSWD: ALL" > /etc/s
 
 sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'set -ex && \
   export PATH="${HOME}/.local/bin:${PATH}" && \
-  mkdir "${HOME}/.tmp"
+  mkdir -p "${HOME}/.tmp"
   rm -rf "${HOME}/.tmp/venv"
   python3 -m venv "${HOME}/.tmp/venv"
   source "${HOME}/.tmp/venv/bin/activate"
