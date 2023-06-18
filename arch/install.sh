@@ -108,7 +108,7 @@ ALL_PAKGS=('mkinitcpio' 'grub' 'efibootmgr' 'dhcpcd' 'networkmanager'
 ALL_PAKGS+=('base' 'base-devel' 'linux' 'linux-firmware' 'linux-headers' 'zip' 'unzip' 'pigz' 'wget' 'ntfs-3g' 'curlftpfs'
   'dhcpcd' 'networkmanager' 'dhclient' 'ufw' 'p7zip' 'unrar' 'jq' 'unarchiver' 'lzop' 'lrzip' 'curl' 'libxcrypt-compat')
 
-ALL_PAKGS+=('bash-completion' 'python-pip' 'python-virtualenv' 'rclone' 'rsync' 'git')
+ALL_PAKGS+=('bash-completion' 'python-pip' 'rclone' 'rsync' 'git')
 
 ALL_PAKGS+=('docker' 'criu' 'docker-scan' 'docker-buildx')
 
