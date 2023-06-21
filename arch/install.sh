@@ -191,10 +191,10 @@ ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad'
   'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'ffmpeg' 'ffmpeg2theora'
   'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'kcodecs')
 
-# Not Sure if this is needed
+# Not Sure if this is needed Removed # libva-vdpau-driver lib32-libva-vdpau-driver
 ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau'
-  'lib32-mesa-vdpau' 'lib32-mesa' 'libva-vdpau-driver'
-  'libvdpau-va-gl' 'mesa-utils' 'lib32-libva-vdpau-driver')
+  'lib32-mesa-vdpau' 'lib32-mesa'
+  'libvdpau-va-gl' 'mesa-utils')
 
 # apparmor dbus-broker libvirtd
 MAN_SERVICES=('dhcpcd' 'NetworkManager' 'sshd' 'systemd-timesyncd'
