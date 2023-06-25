@@ -28,6 +28,12 @@ if [[ -z $* ]]; then
 		__install_tags+=('telegram')
 	fi
 
+	read -n1 -r -p 'Enter "Y" to install Terraform (Press any other key to Skip*) : ' install_terraform
+	echo ""
+	if [[ $install_terraform == "Y" || $install_terraform == "y" ]]; then
+		__install_tags+=('terraform')
+	fi
+
 	read -n1 -r -p 'Enter "Y" to install Bitwarden (Press any other key to Skip*) : ' install_bitwarden_app_image
 	echo ""
 	if [[ $install_bitwarden_app_image == "Y" || $install_bitwarden_app_image == "y" ]]; then
