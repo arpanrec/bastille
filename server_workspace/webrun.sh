@@ -10,11 +10,6 @@ if ! hash git &>/dev/null; then
 	exit 1
 fi
 
-if ! hash virtualenv &>/dev/null; then
-	echo "python-virtualenv/python3-virtualenv not Installed"
-	exit 1
-fi
-
 mkdir -p "$(dirname "${__clone_directory}")"
 
 if [[ ! -d ${__clone_directory} ]]; then
