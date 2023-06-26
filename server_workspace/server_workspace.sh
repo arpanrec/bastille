@@ -121,7 +121,7 @@ if [[ -z ${VIRTUAL_ENV} ]]; then
 	# "$(readlink -f "$(which python3)")" -m pip install testresources wheel setuptools pip virtualenv --user --upgrade
 	echo "Pip Packages installed"
 	if [[ ! -d "${PWD}/venv" ]]; then
-		virtualenv venv
+		"$(readlink -f "$(which python3)")" -m venv venv
 	fi
 	if [[ -f "${PWD}/venv/local/bin/activate" ]]; then
 		source venv/local/bin/activate
