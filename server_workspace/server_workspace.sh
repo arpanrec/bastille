@@ -58,20 +58,10 @@ if [[ -z $* ]]; then
 		__install_tags+=('postman')
 	fi
 
-	read -n1 -r -p 'Enter "Y" to install neo vim (Press any other key to Skip*) : ' install_neovim
+	read -n1 -r -p 'Enter "Y" to install node js (Press any other key to Skip*) : ' install_node_js
 	echo ""
-
-	## Neovim requires nodejs
-	if [[ $install_neovim == "Y" || $install_neovim == "y" ]]; then
-		echo "Neovim COC requires nodejs"
-		install_node_js=y
-		__install_tags+=('nvim')
-	else
-		read -n1 -r -p 'Enter "Y" to install node js (Press any other key to Skip*) : ' install_node_js
-		echo ""
-		if [[ $install_node_js == "Y" || $install_node_js == "y" ]]; then
-			__install_tags+=('nodejs')
-		fi
+	if [[ $install_node_js == "Y" || $install_node_js == "y" ]]; then
+		__install_tags+=('nodejs')
 	fi
 
 	read -n1 -r -p 'Enter "Y" to install go (Press any other key to Skip*) : ' install_go
