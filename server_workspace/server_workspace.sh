@@ -70,10 +70,10 @@ if [[ -z $* ]]; then
 		__install_tags+=('go')
 	fi
 
-	read -n1 -r -p 'Enter "Y" to install Oracle JDK17 (Press any other key to Skip*) : ' install_jdk
+	read -n1 -r -p 'Enter "Y" to install Oracle JDK17 (Press any other key to Skip*) : ' install_java
 	echo ""
-	if [[ $install_jdk == "Y" || $install_jdk == "y" ]]; then
-		__install_tags+=('jdk')
+	if [[ $install_java == "Y" || $install_java == "y" ]]; then
+		__install_tags+=('java')
 	fi
 
 	read -n1 -r -p 'Enter "Y" to install Visual Studio Code (Press any other key to Skip*) : ' install_vscode
