@@ -74,7 +74,7 @@ sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'set -ex && \
   mkdir "${HOME}/.tmp/cloudinit" -p && \
   echo "[local]" > "${HOME}/.tmp/cloudinit/inv" && \
   echo "localhost ansible_connection=local" >> "${HOME}/.tmp/cloudinit/inv" && \
-  ansible-playbook -i "${HOME}/.tmp/cloudinit/inv" --extra-vars "pv_cloud_username=$(whoami)" --extra-vars "linux_patching_rv_managed_packages=[]" arpanrec.utilities.cloudinit && \
+  ansible-playbook -i "${HOME}/.tmp/cloudinit/inv" --extra-vars "pv_cloud_username=$(whoami)" arpanrec.utilities.cloudinit && \
   ansible-playbook -i "${HOME}/.tmp/cloudinit/inv" arpanrec.utilities.server_workspace --tags all && \
   git --git-dir="$HOME/.dotfiles" --work-tree=$HOME reset --hard HEAD
   '
