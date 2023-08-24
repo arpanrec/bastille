@@ -128,8 +128,8 @@ echo "Working dir :: ${PWD}"
 echo ""
 echo ""
 echo ""
-
-pip install -r requirements.txt --upgrade
+pip3 install --upgrade setuptools-rust pip
+pip3 install -r requirements.txt --upgrade
 ansible-galaxy install -r requirements.yml --force
 
 if [[ -n ${__ansible_tags} && ${__ansible_tags} != "," && -z $* ]]; then
