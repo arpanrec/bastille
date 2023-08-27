@@ -61,6 +61,11 @@ sudo chmod 600 /home/"${CLOUD_INIT_USERNAME}"/.ssh/authorized_keys
 sudo mkdir -p /etc/sudoers.d/
 sudo su -c 'echo "%'"${CLOUD_INIT_GROUPNAME}"' ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/010-cloudinit'
 
+sudo ufw allow OpenSSH
+sudo ufw --force enable
+sudo systemctl enable --now ufw
+sudo systemctl restart ufw
+
 sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'set -ex && \
   export PATH="${HOME}/.local/bin:${PATH}" && \
   deactivate || true && \
