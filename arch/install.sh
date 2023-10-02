@@ -135,8 +135,8 @@ if [[ $kde_yes_no == "Y" || $kde_yes_no == "y" ]]; then
   ALL_PAKGS+=('dolphin' 'dolphin-plugins' 'kompare' 'kdegraphics-thumbnailers' 'kimageformats'
     'qt5-imageformats' 'kdesdk-thumbnailers' 'ffmpegthumbs' 'ark' 'gvfs')
 
-  # materia-kde materia UI based themes support
-  ALL_PAKGS+=('kvantum-qt5' 'materia-kde')
+  # materia-kde materia UI based themes support, kvantum-qt5 has moved to aur
+  ALL_PAKGS+=('kvantum' 'materia-kde')
 
   ALL_PAKGS+=('qt5-declarative' 'qt5-x11extras' 'kdecoration' 'print-manager')
 
@@ -384,7 +384,7 @@ PKGS_AUR=('google-chrome' 'brave-bin' 'sublime-text-4')
 
 if [[ $kde_yes_no == "Y" || $kde_yes_no == "y" ]]; then
 
-  echo "No AUR Packages for KDE"
+  PKGS_AUR+=('kvantum-qt5-git')
 
 else
 
