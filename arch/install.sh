@@ -383,9 +383,8 @@ fi
 PKGS_AUR=('google-chrome' 'brave-bin' 'sublime-text-4')
 
 if [[ $kde_yes_no == "Y" || $kde_yes_no == "y" ]]; then
-
-  PKGS_AUR+=('kvantum-qt5-git')
-
+  echo "No AUR Packages for KDE"
+  # PKGS_AUR+=('kvantum-qt5-git')
 else
 
   PKGS_AUR+=('chrome-gnome-shell')
