@@ -132,21 +132,24 @@ pip3 install --upgrade setuptools-rust pip
 pip3 install -r requirements.txt --upgrade
 ansible-galaxy install -r requirements.yml --force
 
-echo "Check if ${HOME}/workspace/server_workspace.json exists"
-if [[ ! -f "${HOME}/workspace/server_workspace.json" ]]; then
-	echo "Creating ${HOME}/workspace/server_workspace.json"
-	mkdir -p "${HOME}/workspace"
-	echo "{}" >"${HOME}/workspace/server_workspace.json"
-	echo "File ${HOME}/workspace/server_workspace.json created"
+MMC_SERVER_WORKSPACE_JSON="${MMC_SERVER_WORKSPACE_JSON:-${HOME}/.tmp/server_workspace.json}"
+echo "MMC_SERVER_WORKSPACE_JSON :: ${MMC_SERVER_WORKSPACE_JSON}"
+echo "Check if ${MMC_SERVER_WORKSPACE_JSON} exists"
+if [[ ! -f "${MMC_SERVER_WORKSPACE_JSON}" ]]; then
+	echo "Creating ${MMC_SERVER_WORKSPACE_JSON}"
+	echo "Creating directory $(dirname "${MMC_SERVER_WORKSPACE_JSON}")"
+	mkdir -p "$(dirname "${MMC_SERVER_WORKSPACE_JSON}")"
+	echo "{}" >"${MMC_SERVER_WORKSPACE_JSON}"
+	echo "File ${MMC_SERVER_WORKSPACE_JSON} created"
 else
-	echo "File ${HOME}/workspace/server_workspace.json exists"
+	echo "File ${MMC_SERVER_WORKSPACE_JSON} exists"
 	echo "This file will be used as extra-vars"
 fi
 
 if [[ -n ${__ansible_tags} && ${__ansible_tags} != "," && -z $* ]]; then
 	ansible-playbook -i inventory.yml arpanrec.utilities.server_workspace \
-		--extra-vars "@${HOME}/workspace/server_workspace.json" --tags "${__ansible_tags::-1}"
+		--extra-vars "@${MMC_SERVER_WORKSPACE_JSON}" --tags "${__ansible_tags::-1}"
 elif [[ -z ${__ansible_tags} && -n $* ]]; then
 	ansible-playbook -i inventory.yml arpanrec.utilities.server_workspace \
-		--extra-vars "@${HOME}/workspace/server_workspace.json" "$@"
+		--extra-vars "@${MMC_SERVER_WORKSPACE_JSON}" "$@"
 fi
