@@ -28,6 +28,12 @@ if [[ -z $* ]]; then
 		__install_tags+=('terraform')
 	fi
 
+	read -n1 -r -p 'Enter "Y" to install Vault (Press any other key to Skip*) : ' install_vault
+	echo ""
+	if [[ $install_vault == "Y" || $install_vault == "y" ]]; then
+		__install_tags+=('vault')
+	fi
+
 	read -n1 -r -p 'Enter "Y" to install Bitwarden (Press any other key to Skip*) : ' install_bitwarden_app_image
 	echo ""
 	if [[ $install_bitwarden_app_image == "Y" || $install_bitwarden_app_image == "y" ]]; then
