@@ -16,12 +16,6 @@ if [[ -z $* ]]; then
 		__install_tags+=('dotfiles')
 	fi
 
-	read -n1 -r -p 'Enter "Y" to install utility scripts (Press any other key to Skip*) : ' install_scripts
-	echo ""
-	if [[ ${install_scripts} == "Y" || ${install_scripts} == "y" ]]; then
-		__install_tags+=('scripts')
-	fi
-
 	read -n1 -r -p 'Enter "Y" to install Telegram (Press any other key to Skip*) : ' install_telegram
 	echo ""
 	if [[ $install_telegram == "Y" || $install_telegram == "y" ]]; then
@@ -132,8 +126,21 @@ pip3 install --upgrade setuptools-rust pip
 pip3 install -r requirements.txt --upgrade
 ansible-galaxy install -r requirements.yml --force
 
+echo "Check if ${HOME}/workspace/server_workspace.json exists"
+if [[ ! -f "${HOME}/workspace/server_workspace.json" ]]; then
+	echo "Creating ${HOME}/workspace/server_workspace.json"
+	mkdir -p "${HOME}/workspace"
+	echo "{}" >"${HOME}/workspace/server_workspace.json"
+	echo "File ${HOME}/workspace/server_workspace.json created"
+else
+	echo "File ${HOME}/workspace/server_workspace.json exists"
+	echo "This file will be used as extra-vars"
+fi
+
 if [[ -n ${__ansible_tags} && ${__ansible_tags} != "," && -z $* ]]; then
-	ansible-playbook -i inventory.yml arpanrec.utilities.server_workspace --tags "${__ansible_tags::-1}"
+	ansible-playbook -i inventory.yml arpanrec.utilities.server_workspace \
+		--extra-vars "@${HOME}/workspace/server_workspace.json" --tags "${__ansible_tags::-1}"
 elif [[ -z ${__ansible_tags} && -n $* ]]; then
-	ansible-playbook -i inventory.yml arpanrec.utilities.server_workspace "$@"
+	ansible-playbook -i inventory.yml arpanrec.utilities.server_workspace \
+		--extra-vars "@${HOME}/workspace/server_workspace.json" "$@"
 fi
