@@ -186,10 +186,11 @@ ALL_PAKGS+=('thunderbird')
 
 ALL_PAKGS+=('cups' 'cups-pdf' 'hplip' 'usbutils' 'system-config-printer' 'cups-pk-helper')
 
+# 'kcodecs' removed from arch
 ALL_PAKGS+=('ffmpegthumbnailer' 'gst-libav' 'gstreamer' 'gst-plugins-bad'
   'gst-plugins-good' 'gst-plugins-ugly' 'gst-plugins-base' 'a52dec'
   'faac' 'faad2' 'flac' 'jasper' 'lame' 'libdca' 'libdv' 'libmad' 'ffmpeg' 'ffmpeg2theora'
-  'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc' 'kcodecs')
+  'libmpeg2' 'libtheora' 'libvorbis' 'libxv' 'wavpack' 'x264' 'xvidcore' 'vlc')
 
 # Not Sure if this is needed Removed # libva-vdpau-driver lib32-libva-vdpau-driver
 ALL_PAKGS+=('libva-mesa-driver' 'lib32-libva-mesa-driver' 'mesa-vdpau'
