@@ -75,7 +75,7 @@ sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'set -ex && \
   source "${HOME}/.tmp/venv/bin/activate" && \
   pip install ansible --upgrade && \
   ansible-galaxy collection install git+https://github.com/arpanrec/ansible_collection_utilities.git -f && \
-  ansible-galaxy role install geerlingguy.docker -f && \
+  ansible-galaxy role install git+https://github.com/geerlingguy/ansible-role-docker.git -f && \
   mkdir "${HOME}/.tmp/cloudinit" -p && \
   echo "[local]" > "${HOME}/.tmp/cloudinit/inv" && \
   echo "localhost ansible_connection=local" >> "${HOME}/.tmp/cloudinit/inv" && \
