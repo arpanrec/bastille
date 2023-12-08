@@ -8,7 +8,7 @@ sudo -H -u root bash -c '/bin/bash <(curl -s https://raw.githubusercontent.com/a
 
 ## Ansible Play Server Workspace
 
-Setup workspace for development using [server workspace playbook](https://github.com/arpanrec/ansible_collection_utilities/blob/main/playbooks/server_workspace.md)
+Setup workspace for development using [server workspace playbook](https://github.com/arpanrec/nebula/blob/main/playbooks/server_workspace.md)
 
 ## Run the playbook
 
