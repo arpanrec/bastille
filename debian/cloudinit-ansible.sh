@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
-
+export DEBIAN_FRONTEND=noninteractive
 sudo apt update
 
 if ! command -v sudo &>/dev/null; then
@@ -67,6 +67,7 @@ sudo systemctl enable --now ufw
 sudo systemctl restart ufw
 
 sudo -H -u "${CLOUD_INIT_USERNAME}" bash -c 'set -ex && \
+  export DEBIAN_FRONTEND=noninteractive && \
   export PATH="${HOME}/.local/bin:${PATH}" && \
   deactivate || true && \
   mkdir -p "${HOME}/.tmp" && \
