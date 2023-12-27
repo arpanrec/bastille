@@ -1,10 +1,9 @@
 #!/bin/bash
 set -ex
-export DEBIAN_FRONTEND=noninteractive
 sudo apt update
 
 if ! command -v sudo &>/dev/null; then
-    apt install sudo -y
+    DEBIAN_FRONTEND=noninteractive apt install sudo -y
 fi
 
 export CLOUD_INIT_GROUPNAME=${CLOUD_INIT_GROUPNAME:-cloudinit}
@@ -27,9 +26,9 @@ sudo sed -i '/^127.0.1.1/d' /etc/hosts
 echo "127.0.1.1 ${CLOUD_INIT_HOSTNAME} ${CLOUD_INIT_HOSTNAME}.${CLOUD_INIT_DOMAINNAME}" | sudo tee -a /etc/hosts
 sudo hostnamectl set-hostname "${CLOUD_INIT_HOSTNAME}"
 
-sudo apt upgrade -y
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 
-sudo apt install -y \
+sudo DEBIAN_FRONTEND=noninteractive apt install -y \
     zip unzip net-tools build-essential tar wget curl ca-certificates sudo \
     systemd telnet gnupg2 apt-transport-https lsb-release software-properties-common \
     locales systemd-timesyncd network-manager gnupg2 gnupg pigz cron acl \
