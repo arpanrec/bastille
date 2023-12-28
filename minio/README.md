@@ -7,7 +7,7 @@ Install minio server on a single node.
 Secrets in [`./.env`](./.env) file:
 
 ```bash
-INIT_STORAGE_MINIO_DOMAIN="hostname for minio"
+INIT_STORAGE_MINIO_DOMAIN="Hostname for minio"
 INIT_STORAGE_MINIO_PROTOCOL=https
 INIT_STORAGE_MINIO_PORT=9000
 INIT_STORAGE_MINIO_CONSOLE_PORT=9001
