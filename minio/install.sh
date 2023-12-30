@@ -303,8 +303,9 @@ EOF
 [Unit]
 Description=MinIO
 Documentation=https://min.io/docs/minio/linux/index.html
-Wants=network-online.target
-After=network-online.target
+Wants=network-online.target ${INIT_STORAGE_KES_SYSTEMD_SERVICE}
+After=network-online.target ${INIT_STORAGE_KES_SYSTEMD_SERVICE}
+Requires=network-online.target ${INIT_STORAGE_KES_SYSTEMD_SERVICE}
 AssertFileIsExecutable=${INIT_STORAGE_MINIO_BIN_FILE}
 
 [Service]
