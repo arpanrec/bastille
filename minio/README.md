@@ -6,6 +6,8 @@ Install minio server on a single node.
 
 Secrets in [`./.env`](./.env) file:
 
+This file should be on the present working directory when running the script.
+
 ```bash
 INIT_STORAGE_MINIO_DOMAIN="Hostname for minio"
 INIT_STORAGE_MINIO_PROTOCOL=https
