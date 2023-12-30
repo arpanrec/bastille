@@ -6,7 +6,11 @@ Install minio server on a single node.
 
 Secrets in [`./.env`](./.env) file:
 
-This file should be on the present working directory when running the script.
+First argument to `install.sh` is the path to the `.env` file.
+
+```bash
+sudo ./install.sh ./.env
+```
 
 ```bash
 INIT_STORAGE_MINIO_DOMAIN="Hostname for minio"
